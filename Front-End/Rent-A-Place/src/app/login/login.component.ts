@@ -15,24 +15,23 @@ export class LoginComponent {
   constructor(private authService: AuthService, private _router:Router) { }
 
 
-//   loginUser() {
-//     // Implement the registration logic here
-//     console.log('login function called');
-//     console.log(this.loginUserData); // Access form data
-//   }
-// }
+  loginUser() {
+    // Implement the registration logic here
+    console.log('login function called');
+    console.log(this.loginUserData); // Access form data
+  }
+}
 
-loginUser() {
-  this.authService.loginUser(User).subscribe(
-    (response) => {
-      // Handle a successful login response here
-      this._router.navigate(['/']);
-    },
-    (error) => {
-      // Handle any errors that may occur during login
-      console.error('Login failed', error);
-      // this._router.navigate(['/events']);
-    }
-  );
-}
-}
+// loginUser() {
+//   this.authService.loginUser(User).subscribe(
+//     (response) => {
+//       // Handle a successful login response here
+//       this._router.navigate(['/special']);
+//     },
+//     (error) => {
+//       // Handle any errors that may occur during login
+//       console.error('Login failed', error);
+//       // this._router.navigate(['/events']);
+//     }
+//   );
+

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private _registerUrl = "https://api.example.com/register"; // Corrected variable name
+  private _signupUrl = "https://api.example.com/register"; // Corrected variable name
   private _loginUrl = "https://api.example.com/login"; // Corrected variable name
 
   constructor(private http: HttpClient) {}
@@ -19,8 +19,8 @@ export class AuthService {
   }
 
   // Example method to send data to an API
-  registerUser(user: any): Observable<any> {
+  signupUser(user: any): Observable<any> {
     // You should provide user data as the second argument
-    return this.http.post(this._registerUrl, user);
+    return this.http.post(this._signupUrl, user);
   }
 }

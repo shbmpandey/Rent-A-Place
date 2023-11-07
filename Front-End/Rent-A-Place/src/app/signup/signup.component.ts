@@ -15,7 +15,7 @@ export class SignupComponent {
 
   constructor() { }
 
-  registerUser() {
+  signupUser() {
     // Implement the registration logic here
   
 
