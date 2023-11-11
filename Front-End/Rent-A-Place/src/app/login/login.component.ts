@@ -1,37 +1,41 @@
-import { Component } from '@angular/core';
-import { User } from 'src/user';
-import { AuthService } from '../auth.service';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserAuthService } from '../_services/user-auth.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  loginUserData = new User("","")
-  route: any;
+export class LoginComponent implements OnInit {
+invalidCredential: boolean=false;
+  constructor(
+    private userService: UserService,
+    private userAuthService: UserAuthService,
+    private router: Router
+  ) {}
 
-  constructor(private authService: AuthService, private _router:Router) { }
+  ngOnInit(): void {}
 
+  login(loginForm: NgForm) {
 
-  loginUser() {
-    // Implement the registration logic here
-    console.log('login function called');
-    console.log(this.loginUserData); // Access form data
+    this.userService.login(loginForm.value).subscribe(
+      (response: any) => {
+        this.userAuthService.setRoles(response.user.role);
+        this.userAuthService.setToken(response.jwtToken);
+
+        const role = response.user.role[0].roleName;
+        if (role === 'Admin') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/user']);
+        }
+      },
+      (error) => {
+        this.invalidCredential=true
+      }
+    );
   }
 }
-
-// loginUser() {
-//   this.authService.loginUser(User).subscribe(
-//     (response) => {
-//       // Handle a successful login response here
-//       this._router.navigate(['/special']);
-//     },
-//     (error) => {
-//       // Handle any errors that may occur during login
-//       console.error('Login failed', error);
-//       // this._router.navigate(['/events']);
-//     }
-//   );
-
